@@ -69,14 +69,21 @@ events.enqueue(Event('A','Hello'))
 events.enqueue(Event('B','event-driven'))
 events.enqueue(Event('A','world'))
 
+# Taking advantage of the function first class 
+handler_dispatcher = {
+	'A': eventHandler_A,
+	'B': eventHandler_B
+}
 ### Event Loop
 while not events.isEmpty():
 	e = events.dequeue()
-	if e.etype == 'A':
-		eventHandler_A(e)
-	if e.etype == 'B':
-		eventHandler_B(e)
+	# if e.etype == 'A':
+	# 	eventHandler_A(e)
+	# if e.etype == 'B':
+	# 	eventHandler_B(e)
 
+	# instead of checking using dictionary to call
+	handler_dispatcher[e.etype](e)
 
 ##### OutPut ######
 """
